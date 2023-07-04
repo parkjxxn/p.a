@@ -1,0 +1,42 @@
+// Знайти найменше спільне кратне р натуральних чисел
+
+// Вхідні дані: в першому рядку задано кількість чисел р(2 ≤ р ≤ 20), а в другому рядку р натуральних чисел, розділені пробілом
+
+// Вихідні дані: найменше спільне кратне заданих чисел
+
+#include <stdio.h>
+
+// Функція для обчислення НСД двох чисел
+int gcd(int a, int b) {
+    if (b == 0)
+        return a;
+    return gcd(b, a % b);
+}
+
+// Функція для обчислення НСК ряду чисел
+// У функції lcm() ми ініціалізуємо змінну result значенням першого числа з масиву numbers[].
+// Потім ми проходимося циклом по решті чисел і змінюємо значення result відповідно до формули НСК.
+
+int lcm(int numbers[], int size) {
+    int result = numbers[0];
+    for (int i = 1; i < size; i++) {
+        result = (result * numbers[i]) / gcd(result, numbers[i]);
+    }
+    return result;
+}
+// У функції main() ми спочатку зчитуємо кількість чисел count зі стандартного вводу за допомогою scanf(). Потім зчитуємо count чисел у масив numbers[]
+
+int main() {
+    int count;
+    scanf("%d", &count);
+
+    int numbers[count];
+    for (int i = 0; i < count; i++) {
+        scanf("%d", &numbers[i]);
+    }
+
+    int result = lcm(numbers, count);
+    printf("%d\n", result);
+
+    return 0;
+}
